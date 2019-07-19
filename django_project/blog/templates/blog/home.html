@@ -1,0 +1,105 @@
+{% extends "blog/base.html" %}
+
+
+
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'tag_list_url' %}">Tags</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            {% if request.user.is_authenticated %}
+          <a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a>
+          <a class="dropdown-item" href="{% url 'registration' %}">Registration</a>
+            {% else %}
+            <a class="dropdown-item" href="{% url 'user_login' %}">Login</a>
+          <a class="dropdown-item" href="{% url 'registration' %}">Registration</a>
+            {% endif %}
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+
+
+    <form class="form-inline my-2 my-lg-0" action="{% url 'blog-home' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+    <h1 class = "mb-5">Posts:</h1>
+    {% for post in posts %}
+    <div class = "card mb-10">
+        <div class = "card-header">
+            {{post.date_pub}}
+        </div>
+        <div class = "card-body">
+        <h2 class = "card-title">{{post.title}}</h2>
+        <p class=" card-text">{{post.body|truncatewords:15}}</p>
+        <p class="card-text">Author:{{post.author}} </p>
+        <a href = "{{post.get_absolute_url}}"  class="btn btn-light">Read</a>
+        </div>
+
+        <div class="card-footer text-muted">
+            Tags:
+            {% for tag in post.tag.all %}
+                <a href="{{tag.get_absolute_url}}">{{tag.title}}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+    {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info mb-2" href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+               {% if num == page_obj.number %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a>
+                {% elif num > page_obj.number|add:-2 and num < page_obj.number|add:2 %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a>
+
+               {% endif %}
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-2" href="?page={{page_obj.next_page_number}}">Next</a>
+        {% endif %}
+
+
+
+    {% endif %}
+
+
+
+{% endblock content %}

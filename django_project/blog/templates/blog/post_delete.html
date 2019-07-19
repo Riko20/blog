@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<h1>The post "{{post.title}}" will be deleted, as u wish!</h1>
+
+<form action="{% url 'post_delete' slug=post.slug %}" method="post">
+    {% csrf_token %}
+
+
+    <h3>Are u sure u want to delete? <b>{{post.title}}</b>post?</h3>
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+
+</form>
+
+{% endblock content %}

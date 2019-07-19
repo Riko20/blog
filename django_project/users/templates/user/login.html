@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}  ##check
+{% block content %}
+
+<form action="{% url 'user_login' %}" method="post">
+    {% csrf_token %}
+
+    <h1>Good day, lets follow our blog as user</h1>
+    {{ form }}
+
+    <button type="submit" class="btn btn-primary">Log in!</button>
+
+    <div class="border-top pt-3">
+    <small class="text-muted">
+        Need an account?
+        <a class="ml-2" href="{% url 'user_create' %}">Create it</a>
+    </small>
+    </div>
+</form>
+
+{% endblock content %}

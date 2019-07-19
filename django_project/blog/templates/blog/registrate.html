@@ -1,0 +1,44 @@
+
+
+<div class="content-section">
+    <form method="post">
+        {% csrf_token %}
+        {{user_form}}
+
+       <div>
+           <button type="submit" class="btn btn-outline-info">Create</button>
+
+       </div>
+
+    </form>
+
+    <small class="text-muted">
+               Have account already?
+               <a href="{% url 'user_login' %}">Login</a>
+           </small>
+</div>
+
+ <!--OLD ONE-->
+<!--<form action="{% url 'user_create' %}" method="post">-->
+    <!--{% csrf_token %}-->
+
+    <!--<h1>Good day, lets follow our blog as user</h1>-->
+    <!--<div>Please, enter your username</div>-->
+    <!--{{ user_form.username }}-->
+    <!--<div>Your password should be more than 8 symbols</div>-->
+    <!--{{user_form.password}}-->
+    <!--<div>Confirm your password</div>-->
+    <!--{{user_form.password}}-->
+    <!--<div>Write your email to find your pass:)</div>-->
+    <!--{{user_form.email}}-->
+    <!--<div>-->
+        <!--<button type="submit" class="btn btn-primary">Create me!</button>-->
+    <!--</div>-->
+
+    <!--<div> Already have an account?-->
+        <!--<a class="ml-2" href="{% url 'user_login' %}">Log In</a>-->
+    <!--</div>-->
+
+
+<!--</form>-->
+

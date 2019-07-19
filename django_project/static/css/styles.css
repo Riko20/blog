@@ -1,0 +1,14 @@
+.admin-panel {
+    border: 1px solid #999;
+    border-radius: 2px;
+    position: fixed;
+    right: 50px;
+    bottom: 100px;
+    opacity: 0.5;
+    padding: 15px;
+
+}
+
+.admin-panel a {
+    display: block;
+}
